@@ -1,0 +1,29 @@
+{
+  "windowDays": 90,
+  "universe": "us-market+ftse100",
+  "companies": [
+    {
+      "symbol": "TSM",
+      "name": "TSMC",
+      "sector": "Information Technology",
+      "category": "technology"
+    },
+    {
+      "symbol": "ASML",
+      "name": "ASML",
+      "sector": "Information Technology",
+      "category": "technology"
+    },
+    {
+      "symbol": "ARM",
+      "name": "Arm Holdings",
+      "sector": "Information Technology",
+      "category": "technology"
+    }
+  ],
+  "markets": [
+    "US",
+    "UK"
+  ],
+  "ftse100ConstituentFile": "data/ftse100-companies.json"
+}

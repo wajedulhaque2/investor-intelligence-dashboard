@@ -1,0 +1,37 @@
+{
+  "baseCurrency": "GBP",
+  "holdings": [
+    {
+      "symbol": "AAPL",
+      "name": "Apple",
+      "shares": 1,
+      "averageCost": 180,
+      "currency": "USD",
+      "account": "Demo ISA"
+    },
+    {
+      "symbol": "MSFT",
+      "name": "Microsoft",
+      "shares": 1,
+      "averageCost": 420,
+      "currency": "USD",
+      "account": "Demo ISA"
+    },
+    {
+      "symbol": "NVDA",
+      "name": "Nvidia",
+      "shares": 2,
+      "averageCost": 150,
+      "currency": "USD",
+      "account": "Demo GIA"
+    },
+    {
+      "symbol": "VUAG.L",
+      "name": "Vanguard S&P 500 UCITS ETF",
+      "shares": 3,
+      "averageCost": 95,
+      "currency": "GBP",
+      "account": "Demo ISA"
+    }
+  ]
+}

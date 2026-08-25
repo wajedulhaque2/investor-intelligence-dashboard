@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Personal portfolio, global market news, earnings, famous investor filings and Trump market watch dashboard.">
+  <title>Investor Intelligence Dashboard</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#overview" aria-label="Investor Intelligence home">
+        <span class="brand-mark">II</span>
+        <span>
+          <strong>Investor Intelligence</strong>
+          <small>Personal market command centre</small>
+        </span>
+      </a>
+
+      <nav class="nav" aria-label="Dashboard sections">
+        <a class="active" href="#overview">Overview</a>
+        <a href="#portfolio">My portfolio</a>
+        <a href="#explorer">Stock explorer</a>
+        <a href="#news">Market news</a>
+        <a href="#earnings">Earnings</a>
+        <a href="#investors">Famous investors</a>
+        <a href="#trump">DJT Radar</a>
+      </nav>
+
+      <div class="sidebar-note">
+        <span class="status-dot"></span>
+        <div>
+          <strong id="data-status">Connecting…</strong>
+          <small id="last-refresh">Loading your portfolio and market feeds.</small>
+        </div>
+      </div>
+    </aside>
+
+    <main>
+      <header class="topbar" id="overview">
+        <div>
+          <p class="eyebrow">PERSONAL MARKET DASHBOARD</p>
+          <h1 id="greeting">Market intelligence</h1>
+          <p class="subtle">Your positions, global catalysts, major stocks and watched investors in one place.</p>
+        </div>
+        <div class="topbar-actions">
+          <label class="auto-refresh-control" for="auto-refresh-select">
+            <span>Auto refresh</span>
+            <select id="auto-refresh-select" aria-label="Auto refresh interval">
+              <option value="0">Off</option>
+              <option value="30">30 seconds</option>
+              <option value="60" selected>60 seconds</option>
+            </select>
+          </label>
+          <span class="date-chip auto-refresh-status" id="auto-refresh-status" aria-live="polite">Next in 60s</span>
+          <button class="secondary-button" id="refresh-button" type="button">Refresh data</button>
+          <span class="date-chip" id="today-label"></span>
+        </div>
+      </header>
+
+      <section class="metrics metrics-five" aria-label="Account and portfolio summary">
+        <article class="metric-card">
+          <span>Account value</span>
+          <strong id="portfolio-value">£—</strong>
+          <small id="portfolio-cost">Waiting for Trading 212</small>
+        </article>
+        <article class="metric-card">
+          <span>Today</span>
+          <strong id="day-change">—</strong>
+          <small id="day-change-value">Waiting for live quotes</small>
+        </article>
+        <article class="metric-card">
+          <span>MAX return</span>
+          <strong id="max-return">—</strong>
+          <small id="max-return-detail">Realised plus unrealised P/L</small>
+        </article>
+        <article class="metric-card">
+          <span>Next earnings</span>
+          <strong id="next-earnings">—</strong>
+          <small id="next-earnings-date">No event loaded</small>
+        </article>
+        <article class="metric-card">
+          <span>Unrealised P/L</span>
+          <strong id="portfolio-pnl">—</strong>
+          <small id="portfolio-source-label">Waiting for portfolio</small>
+        </article>
+      </section>
+
+      <section class="market-pulse" aria-labelledby="market-pulse-title">
+        <div class="section-heading-inline">
+          <div>
+            <p class="eyebrow">MARKET PULSE</p>
+            <h2 id="market-pulse-title">Indices, chips and mega-caps</h2>
+          </div>
+          <span class="panel-meta">US market proxies</span>
+        </div>
+        <div class="pulse-grid" id="pulse-grid">
+          <div class="pulse-skeleton">Loading market pulse…</div>
+        </div>
+      </section>
+
+      <section class="dashboard-grid">
+        <article class="panel panel-wide" id="portfolio">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">MY PORTFOLIO</p>
+              <h2>Holdings and allocation</h2>
+            </div>
+            <span class="panel-meta" id="portfolio-count">0 positions</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Asset</th>
+                  <th>Account</th>
+                  <th>Price</th>
+                  <th>Day</th>
+                  <th>Value</th>
+                  <th>Allocation</th>
+                </tr>
+              </thead>
+              <tbody id="portfolio-body"></tbody>
+            </table>
+          </div>
+          <div class="empty-state hidden" id="portfolio-error"></div>
+        </article>
+
+        <article class="panel panel-wide stock-explorer" id="explorer">
+          <div class="panel-heading explorer-heading">
+            <div>
+              <p class="eyebrow">STOCK EXPLORER</p>
+              <h2>Understand valuation and trading statistics</h2>
+            </div>
+            <form class="explorer-search" id="stock-explorer-form">
+              <label for="stock-symbol" class="sr-only">Stock ticker</label>
+              <input id="stock-symbol" class="news-search" type="text" value="AMD" maxlength="12" autocomplete="off" placeholder="Ticker, e.g. AMD">
+              <button class="secondary-button" type="submit">Analyse</button>
+            </form>
+          </div>
+
+          <div class="explorer-quick" aria-label="Example stocks">
+            <button type="button" data-explorer-symbol="AMD">AMD</button>
+            <button type="button" data-explorer-symbol="NVDA">Nvidia</button>
+            <button type="button" data-explorer-symbol="MU">Micron</button>
+            <button type="button" data-explorer-symbol="AAPL">Apple</button>
+            <button type="button" data-explorer-symbol="MSFT">Microsoft</button>
+          </div>
+
+          <div class="news-status" id="stock-explorer-status">Loading AMD fundamentals…</div>
+          <div class="explorer-company" id="explorer-company" hidden>
+            <div>
+              <span class="explorer-symbol" id="explorer-symbol">AMD</span>
+              <h3 id="explorer-name">Advanced Micro Devices</h3>
+              <p id="explorer-meta">Technology · NASDAQ</p>
+            </div>
+            <div class="explorer-price">
+              <strong id="explorer-price">—</strong>
+              <span id="explorer-day-change">—</span>
+            </div>
+          </div>
+
+          <div class="fundamental-grid" id="fundamental-grid">
+            <div class="empty-state">Enter a US-listed stock ticker to examine its fundamentals.</div>
+          </div>
+
+          <div class="research-note">
+            <strong>“Good” is contextual.</strong>
+            <span>Market cap measures size, volume measures liquidity, P/E measures the price paid for earnings, and dividend yield measures cash income. Compare valuation ratios with similar businesses and growth rates rather than using one universal cut-off.</span>
+          </div>
+        </article>
+
+        <article class="panel panel-wide" id="news">
+          <div class="panel-heading news-heading">
+            <div>
+              <p class="eyebrow">MARKET INTELLIGENCE</p>
+              <h2>Worldwide news that can move your portfolio</h2>
+            </div>
+            <label class="news-search-label" for="news-search">
+              <span class="sr-only">Search news</span>
+              <input id="news-search" class="news-search" type="search" placeholder="Search headlines">
+            </label>
+          </div>
+
+          <div class="news-toolbar" role="group" aria-label="News categories">
+            <button class="filter-chip active" type="button" data-news-category="all">Top stories</button>
+            <button class="filter-chip" type="button" data-news-category="global">Global markets</button>
+            <button class="filter-chip" type="button" data-news-category="ftse100">FTSE 100</button>
+            <button class="filter-chip" type="button" data-news-category="memory">Memory &amp; chips</button>
+            <button class="filter-chip" type="button" data-news-category="megacaps">Mega-caps</button>
+            <button class="filter-chip" type="button" data-news-category="macro">Macro &amp; policy</button>
+            <button class="filter-chip" type="button" data-news-category="portfolio">My holdings</button>
+          </div>
+
+          <div class="news-status" id="news-status">Loading global and thematic news…</div>
+          <div class="news-grid" id="news-list"></div>
+        </article>
+
+        <article class="panel panel-wide" id="earnings">
+          <div class="panel-heading earnings-heading">
+            <div>
+              <p class="eyebrow">WEEKLY EARNINGS CALENDAR</p>
+              <h2>This week’s US and FTSE 100 earnings reports</h2>
+            </div>
+            <span class="panel-meta">Yahoo-style Sunday–Saturday week · rolls automatically</span>
+          </div>
+
+          <div class="earnings-toolbar">
+            <label class="news-search-label" for="earnings-search">
+              <span class="sr-only">Search this week’s earnings companies</span>
+              <input id="earnings-search" class="news-search" type="search" placeholder="Search this week’s companies…">
+            </label>
+            <label class="select-label compact-select">
+              Market
+              <select id="earnings-market">
+                <option value="all">All markets</option>
+                <option value="US">US</option>
+                <option value="UK">UK · FTSE 100</option>
+              </select>
+            </label>
+            <label class="select-label compact-select">
+              Day
+              <select id="earnings-day">
+                <option value="all">All week</option>
+              </select>
+            </label>
+          </div>
+          <div class="news-status" id="earnings-status">Loading US and FTSE 100 earnings for the current week…</div>
+          <div class="earnings-grid" id="earnings-list"></div>
+          <div class="earnings-more-row"><button class="secondary-button hidden" id="earnings-more" type="button">Show more</button></div>
+          <p class="fine-print">Calendar dates and estimates can change. Open any company card to verify the event at source.</p>
+        </article>
+
+        <article class="panel panel-wide trump-compact" id="trump">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">TRUMP WATCH</p>
+              <h2>Latest Truth Social posts</h2>
+            </div>
+            <a class="text-button" href="https://x.com/DJTRadar" target="_blank" rel="noopener noreferrer">Open @DJTRadar</a>
+          </div>
+
+          <div class="trump-summary-row">
+            <span class="alert-badge">Market-sensitive monitor</span>
+            <label class="switch-row">
+              <input id="trump-market-only" type="checkbox" checked>
+              <span>Market-related only</span>
+            </label>
+          </div>
+          <p class="trump-helper">Flags mentions of tariffs, rates, energy, defence, chips, crypto, markets and named companies.</p>
+          <div class="trump-feed" id="trump-feed">
+            <div class="empty-state">Loading posts…</div>
+          </div>
+          <p class="fine-print" id="trump-source-note">Trying the public Truth Social feed. Backup sources are used automatically if it is unavailable.</p>
+        </article>
+
+        <article class="panel panel-wide" id="investors">
+          <div class="panel-heading investor-heading">
+            <div>
+              <p class="eyebrow">SEC 13F TRACKER</p>
+              <h2>Famous investor activity</h2>
+            </div>
+            <label class="select-label">
+              Manager
+              <select id="investor-select">
+                <option value="berkshire">Berkshire Hathaway — Warren Buffett</option>
+                <option value="pershing">Pershing Square — Bill Ackman</option>
+                <option value="duquesne">Duquesne Family Office — Stanley Druckenmiller</option>
+                <option value="baupost">Baupost Group — Seth Klarman</option>
+                <option value="appaloosa">Appaloosa — David Tepper</option>
+                <option value="soros">Soros Fund Management</option>
+                <option value="bridgewater">Bridgewater Associates</option>
+                <option value="scion">Scion Asset Management — Michael Burry (archive)</option>
+              </select>
+            </label>
+          </div>
+
+          <section class="fast-signals" aria-labelledby="fast-signals-title">
+            <div class="section-heading-inline">
+              <div>
+                <p class="eyebrow">FASTER SEC SIGNALS</p>
+                <h3 id="fast-signals-title">Ownership and insider filings</h3>
+              </div>
+              <div class="signal-filters" role="group" aria-label="SEC signal types">
+                <button class="filter-chip active" type="button" data-signal-type="all">All</button>
+                <button class="filter-chip" type="button" data-signal-type="ownership">13D / 13G</button>
+                <button class="filter-chip" type="button" data-signal-type="insider">Form 4</button>
+              </div>
+            </div>
+            <div class="signal-latency-grid">
+              <div><strong>13F</strong><span>Fuller institutional snapshot · up to 45 days after quarter-end</span></div>
+              <div><strong>13D</strong><span>More than 5% ownership with control intent · generally 5 business days</span></div>
+              <div><strong>Form 4</strong><span>Corporate insider transactions · generally 2 business days</span></div>
+            </div>
+            <div class="news-status" id="signals-status">Loading recent SEC filings…</div>
+            <div class="signals-list" id="signals-list"></div>
+          </section>
+
+          <div class="investor-summary" id="investor-summary">
+            <div>
+              <span>Latest report</span>
+              <strong id="investor-report-date">Loading…</strong>
+            </div>
+            <div>
+              <span>Reported value</span>
+              <strong id="investor-total-value">—</strong>
+            </div>
+            <div>
+              <span>Positions</span>
+              <strong id="investor-position-count">—</strong>
+            </div>
+            <div>
+              <span>Filed</span>
+              <strong id="investor-filed-date">—</strong>
+            </div>
+          </div>
+
+          <div class="investor-columns">
+            <div>
+              <h3>Largest disclosed holdings</h3>
+              <div class="rank-list" id="investor-holdings"></div>
+            </div>
+            <div>
+              <h3>Biggest quarter-on-quarter moves</h3>
+              <div class="rank-list" id="investor-changes"></div>
+            </div>
+          </div>
+
+          <div class="manager-disclosures-section">
+            <h3>Recent filings by this manager entity</h3>
+            <div class="manager-disclosures" id="manager-disclosures"></div>
+          </div>
+          <p class="fine-print">13F filings are delayed and incomplete. Faster filings only appear when a disclosure rule is triggered, so they still do not reveal every trade.</p>
+        </article>
+      </section>
+
+      <footer>
+        <span>For research and information only — not investment advice.</span>
+        <span id="footer-refresh"></span>
+      </footer>
+    </main>
+  </div>
+
+  <script src="/app.js" defer></script>
+</body>
+</html>
