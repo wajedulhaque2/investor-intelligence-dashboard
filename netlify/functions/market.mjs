@@ -23,7 +23,7 @@ export default async (request) => {
     .slice(0, symbolLimit);
   const days = Math.min(120, Math.max(7, Number(url.searchParams.get("days")) || 90));
 
-  const apiKey = Netlify.env.get("FINNHUB_API_KEY");
+  const apiKey = process.env.FINNHUB_API_KEY;
   if (!apiKey) {
     return json({ error: "FINNHUB_API_KEY is not configured." }, 503);
   }
