@@ -125,7 +125,7 @@ export default async (request) => {
     .map(symbol => normaliseKnownSymbol(symbol))
     .filter(Boolean))]
     .slice(0, 16);
-  const apiKey = Netlify.env.get("FINNHUB_API_KEY");
+  const apiKey = process.env.FINNHUB_API_KEY;
 
   try {
     const themeResults = await Promise.all(THEMES.map(theme => getGoogleTheme(theme)));
