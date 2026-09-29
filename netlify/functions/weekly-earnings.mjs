@@ -65,7 +65,7 @@ export default async (request) => {
     throw new Error("Yahoo returned no weekly US or FTSE 100 earnings rows.");
   } catch (error) {
     console.warn("Yahoo weekly earnings unavailable, using Finnhub fallback:", error.message);
-    const apiKey = Netlify.env.get("FINNHUB_API_KEY");
+    const apiKey = process.env.FINNHUB_API_KEY;
     if (!apiKey) {
       return json({
         error: "Yahoo Finance was unavailable and FINNHUB_API_KEY is not configured for fallback."
