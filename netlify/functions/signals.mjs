@@ -6,7 +6,7 @@ const FEEDS = [
 ];
 
 export default async () => {
-  const userAgent = Netlify.env.get("SEC_USER_AGENT");
+  const userAgent = process.env.SEC_USER_AGENT;
   if (!userAgent || !userAgent.includes("@")) {
     return json({ error: "SEC_USER_AGENT must identify the app and include a contact email." }, 503);
   }

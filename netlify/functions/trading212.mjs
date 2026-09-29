@@ -1,9 +1,9 @@
 const ALLOWED_ENVIRONMENTS = new Set(["live", "demo"]);
 
 export default async () => {
-  const apiKey = Netlify.env.get("TRADING212_API_KEY");
-  const apiSecret = Netlify.env.get("TRADING212_API_SECRET");
-  const requestedEnvironment = String(Netlify.env.get("TRADING212_ENVIRONMENT") || "live").toLowerCase();
+  const apiKey = process.env.TRADING212_API_KEY;
+  const apiSecret = process.env.TRADING212_API_SECRET;
+  const requestedEnvironment = String(process.env.TRADING212_ENVIRONMENT || "live").toLowerCase();
   const environment = ALLOWED_ENVIRONMENTS.has(requestedEnvironment) ? requestedEnvironment : "live";
 
   if (!apiKey || !apiSecret) {
