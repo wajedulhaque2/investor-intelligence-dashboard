@@ -52,24 +52,20 @@ a { color: inherit; }
   z-index: 10;
 }
 .brand {
-  display: flex;
-  gap: 12px;
-  align-items: center;
+  display: inline-flex;
+  align-items: flex-start;
   text-decoration: none;
 }
-.brand-mark {
-  width: 42px;
-  height: 42px;
-  border-radius: 14px;
-  display: grid;
-  place-items: center;
-  color: #07100f;
-  font-weight: 800;
-  background: var(--accent);
+.brand-lockup {
+  display: block;
+  border-left: 3px solid var(--accent);
+  padding: 2px 0 2px 12px;
 }
 .brand strong, .brand small { display: block; }
-.brand strong { font-size: 0.97rem; }
-.brand small { color: var(--muted); font-size: 0.76rem; margin-top: 2px; }
+.brand strong { font-size: 1.12rem; line-height: 1.08; letter-spacing: -0.035em; }
+.brand strong em { display: block; color: var(--accent); font-style: normal; }
+.brand small { color: var(--muted); font-size: 0.61rem; letter-spacing: 0.08em; margin-top: 7px; }
+.brand:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
 .nav { display: grid; gap: 6px; margin-top: 46px; }
 .nav a {
   text-decoration: none;
@@ -170,12 +166,13 @@ h3 { font-size: 0.92rem; }
   margin-bottom: 18px;
 }
 .metric-card {
-  background: linear-gradient(145deg, rgba(17, 30, 28, 0.92), rgba(12, 23, 21, 0.96));
+  background: var(--panel-2);
   border: 1px solid var(--border);
-  border-radius: 18px;
+  border-radius: 14px;
   padding: 18px;
-  box-shadow: var(--shadow);
+  border-top: 2px solid rgba(101, 224, 177, 0.28);
 }
+.metric-card:first-child { background: #18312b; border-top-color: var(--accent); }
 .metric-card span, .metric-card small { display: block; color: var(--muted); }
 .metric-card span { font-size: 0.78rem; }
 .metric-card strong { display: block; margin: 12px 0 6px; font-size: 1.5rem; letter-spacing: -0.035em; }
