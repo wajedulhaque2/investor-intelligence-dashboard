@@ -36,6 +36,15 @@ Built with vanilla JavaScript, serverless Netlify Functions and live/public fina
 </table>
 
 <details>
+<summary><strong>Demo portfolio holdings</strong></summary>
+
+![Demo portfolio holdings and allocation](screenshots/portfolio-holdings.png)
+
+The displayed holdings are synthetic demo positions; market quotes are supplied by the configured data provider.
+
+</details>
+
+<details>
 <summary><strong>Event monitor screenshot</strong></summary>
 <br>
 
